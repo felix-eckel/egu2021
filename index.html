@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Identification of Infrasound Regimes at Mount Etna using Pattern Recognition Techniques</title> <!-- TODO SET CORRECT TITLE -->
+
+		<meta name="description" content="Display material for vEGU 20201"> <!-- TODO SET CORRECT DESCRIPTION -->
+		<meta name="author" content="Felix Eckel, Horst Langer, Mariangela Sciotto"> 
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="reveal/reset.css">
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="league_cstm.css" id="theme">
+		<link rel="stylesheet" href="egu.css">
+		<!-- Fonts -->
+		<link rel="stylesheet" href="https://use.typekit.net/etz2vrl.css">
+		<link rel="stylesheet" href="plugins/highlight/monokai.css" id="highlight-theme">
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<div class="heading">
+						<h3>Identification of Infrasound Regimes at Mount Etna using Pattern Recognition Techniques</h3>
+					</div>
+					<div class="flex-div" style="margin-top:50px;">
+						<p class="cau-affil author"><a href="mailto:felix.eckel@ifg.uni-kiel.de" onmouseover="highlightCAU()" onmouseout="highlightLogo_off()"t>Felix Eckel</a></p>
+						<span style="padding-left: 2ex;"></span>
+						<p class="ingv-affil author"><a href="mailto:horst.langer@ingv.it" onmouseover="highlightINGV()" onmouseout="highlightLogo_off()">Horst Langer</a></p>
+						<span style="padding-left: 2ex;"></span>
+						<p class="ingv-affil author"><a href="mailto:mariangela.sciotto@ingv.it" onmouseover="highlightINGV()" onmouseout="highlightLogo_off()">Mariangela Sciotto</a></p>
+					</div>
+					<div class="flex-div">
+						<div class="logo-box">
+						<a href="https://www.uni-kiel.de" id="cau-logo" class="logo">
+						<img src="resources/logo_mnf.png">
+						</a>
+						</div>
+						<!-- <span style="padding-left: 100px;"></span> -->
+						<div class="logo-box">
+						<a href="https://www.ingv-oe.it" id="ingv-logo" class="logo">
+						<img src="resources/logo_ingv_inv.png">
+						</a>
+						</div>
+					</div>
+				</section>
+				
+				<!-- Overview -->
+				<section id="overview">
+				<div class="heading">
+					<h3>Overview</h3>
+				</div>
+				<div id="overview-grid" class="grid-div">
+					<a href="#/introduction">1. Introduction</a>
+					<a href="#/method">2. Method</a>
+					<a href="#/results">3. Results</a>
+					<a href="#/conclusion">4. Conclusion</a>
+				</div>
+				</section>
+				
+				<section>
+					<section id="introduction">
+						<div class="heading">
+							<h3>Introduction</h3>
+						</div>
+						<p class="textblock">Mount Etna is an active volcano in a densely populated area.</p>
+						<p class="textblock">It therefore needs constant monitoring.</p>
+						<p class="textblock">Infrasound recordings play a vital role in this observation routine.</p>
+						<p class="textblock">We apply a pattern recognition method to improve the analysis and interpretation of the signals in the infrasound data.
+						</p>
+						<a href="#" class="navigate-down">
+							<p class="read-more">Read more</p>
+							<i data-feather="chevrons-down" class="icon"></i>
+						</a>
+					</section>
+					
+					<section>
+						<h3>Infrasound station network at Mount Etna</h3>
+						<div class="grid-div" style="grid-template-columns: 10% 50% 40%; align-items: center;">
+							<div id="map-container">
+								<img src="resources/gmt_infrastations_p.png">
+								<div id="esln-marker" class="marker"></div>
+							</div>
+							<div>
+								<p class="textblock">We select station ESLN at 1,700 m a.s.l. because of a high data availability and quality</p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Some Infrasound signals</h3>
+						<p class="tip">Hover over the circles to learn more about the signals</p>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div>
+								<img src="resources/bitmap_example.png">
+								<div id="event-marker" class="marker" onmouseover="showSignal('event')" onmouseout="resetSignal()"></div>
+								<div id="tremor-marker" class="marker" onmouseover="showSignal('tremor')" onmouseout="resetSignal()"></div>
+								<div id="noise-marker" class="marker" onmouseover="showSignal('noise')" onmouseout="resetSignal()"></div>
+							</div>
+							<div id="description-div">
+								<p id="signal-heading"></p>
+								<p id="signal-description"></p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Goal</h3>
+						<p class="textblock">Volcanic activity can manifest in many different infrasound scenarios.</p>
+						<p class="textblock">For the human eye it is difficult to differentiate theses signals.</p>
+						<p class="textblock">We apply a pattern recognition technique called Self-Organizing Maps to automatically classify infrasound patterns in the waveform.</p>
+						<p class="textblock">Our approach simplifies the interpretation and analysis of infrasound data.</p>
+					</section>
+					
+					<section>
+						<div class="grid-div" style="grid-template-columns: auto auto;">
+						<a href="#/overview">
+							<h4>Return to overview</h4>
+							<i data-feather="chevrons-left" class="icon"></i>
+						</a>
+						<a href="#/method">
+							<h4>Advance to next chapter</h4>
+							<i data-feather="chevrons-right" class="icon"></i>
+						</a>
+						</div>
+					</section>
+				</section>
+				
+				<section>
+					<section id="method">
+						<div class="heading">
+							<h3>Method</h3>
+						</div>
+						<p class="textblock">We use an unsupervised pattern recognition technique called <span style="font-style:italic;">Self-Organizing Maps</span> (SOMs) to classify infrasound waveform patterns.</p>
+						<a href="#" class="navigate-down">
+							<p class="read-more">Read more</p>
+							<i data-feather="chevrons-down" class="icon"></i>
+						</a>
+					</section>
+					
+					<section>
+						<h3>Step 1: Cutting the waveform</h3>
+						<img src="resources/data_sample.png">
+						<p class="textblock textcolumn">We want to be sensitive to frequencies as low as 0.05 Hz. We need to ensure that for the lowest frequencies enough wave cycles fit into the window. We also do not want windows that are too long to avoid that the signal changes too much within the window. We therefore cut the waveform into windows of 250 s.</p>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Step 2: Calculating the features</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div class="layer-container">
+								<img src="resources/PREP_Spectrogram_axes.png">
+								<img src="resources/PREP_Spectrogram_step1.png" class="layer-overlay">
+							</div>
+							<div class="flex-div">
+								<p class="textblock" style="width:90%;">We calculate the spectrum to extract features that describe the waveform.</p>
+							</div>	
+						</div>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Step 2: Calculating the features</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div class="layer-container">
+								<img src="resources/PREP_Spectrogram_axes.png">
+								<img src="resources/PREP_Spectrogram_step1.png" class="layer-overlay" style="opacity: 0.2;">
+								<img src="resources/PREP_Spectrogram_step2.png" class="layer-overlay">
+							</div>
+							<div>
+								<p class="textblock-full">We simplify the spectrum by averaging in ten logarithmically spaced frequency bins.</p>
+								<p class="textblock-full">These ten values built up our feature vector that represents the infrasound waveform within a 250 s window.</p>
+								<p class="textblock-full">We call the parameter space of these features the <span style="font-style:italic">Feature Space</span>.</p>
+							</div>	
+						</div>
+					</section>
+					
+					<section>
+						<h3>Step 3: Selection of a reference data set</h3>
+						<div>
+							<p class="textblock">We want to recognize typical infrasound patterns at Mount Etna.</p>
+							<p class="textblock">For this, we need to compile a reference data set that contains feature vectors for every expected infrasound scenario.</p>
+							<p class="textblock">We call these scenarios <span style="font-style:italic;">regimes</span> and our reference data set should represent the parent population of possible regimes.</p>
+							<p class="textblock">We have manually selected 8,600 feature vectors in the time period from December 2018 to March 2021 for our reference data set.</p>
+						</div>
+						<!--<p class="tip">Visit chapter <a href="#/results">Results</a> for regime examples.</p>-->
+					</section>
+					
+					<section>
+						<h3>Step 4: Projection onto a 2D plane</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div>
+								<img src="resources/PCA_reference_data.png">
+							</div>
+							<div style="margin:auto;">
+								<p class="textblock-full">We use <span style="font-style:italic">Principal Component Analysis</span> (PCA) to determine a 2D plane within the 10 dimensional feature space where we can project the feature vectors onto.</p>
+								<p class="textblock-full">We call this projected feature space the <span style="font-style:italic">Representation Space</span>.</p>
+							</div>
+						</div>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Step 5: Microclustering</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div class="layer-container">
+								<img src="resources/PCA_axes.png">
+								<img src="resources/PCA_init.png" class="layer-overlay">
+							</div>
+							<div class="grid-div" style="grid-template-columns: 10% 90%;align-items:normal;">
+								<h4>1.</h4>
+								<div>
+									<h4 style="text-align:left;margin:auto;">Initialization</h4>
+									<p class="textblock-full">A lattice of <span style="font-style:italic">Nodes</span> is initialized in the feature space (i.e. they have the same dimensions as the feature vectors).</p>
+									<p class="textblock-full">The nodes are arranged in a hexagonal configuration, e.g. each node has up to six neighboring nodes.</p>
+								</div>
+							</div>
+						</div>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Step 5: Microclustering</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div class="layer-container">
+								<img src="resources/PCA_axes.png">
+								<img src="resources/PCA_SOM_502.png" class="layer-overlay">
+							</div>
+							<div class="grid-div" style="grid-template-columns: 10% 90%;align-items:normal;">
+								<h4>2.</h4>
+								<div>
+									<h4 style="text-align:left;margin:auto;">Training</h4>
+									<p class="textblock-full">The nodes are iteratively shifted to best represent the feature vectors.</p>
+									<p class="textblock-full">The node that is closest to any feature vector is called <span style="font-size:italic;">Best Matching Unit</span> (BMU) for this particular vector.</p>
+									<p class="textblock-full">In the training process the dispersion of all feature vectors that share the same BMU is minimzed and the dispersion of all nodes is maximized.</p>
+								</div>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Step 6: Color coding</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div>
+								<img src="resources/PCA_SOM_502_cc.png">
+							</div>
+							<div style="margin:auto;">
+								<p class="textblock-full">Based on their position in the representation space (i.e. after PCA projection) the nodes are assigned a color code.</p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Step 7: Predictions</h3>
+						<div class="grid-div" style="grid-template-columns: 60% 40%;">
+							<div>
+								<img src="resources/PCA_training_patterns.png">
+							</div>
+							<div style="margin:auto;">
+								<p class="textblock-full">Any feature vector (regardless whether it is included in the reference data set or not) can be assigned the color code of its BMU (i.e. the closest node in the feature space).</p>
+								<p class="textblock-full"><span style="font-weight:bold;">Similar feature vectors</span> (representing a similar spectral content of the waveform samples) are represented by <span style="font-weight:bold;">similar colors</span>.</p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Step 8: Interpretation of the results</h3>
+						<div>
+							<p class="textcolumn textblock">Up to this point the colors assigned to the waveform windows are completely arbitrary.
+							<br>Using expert knowledge and information derived from other monitoring disciplines, we can assign labels to the colors.
+							<br>Once these labels have been validated, newly acquired feature vectors can be interpreted based on these labels.
+							<br>This is possible because new feature vectors are always evaluated on the nodes trained on the reference data set.
+							<br>However, the prediction results are only valid as long as similar patterns are included in the reference data set.</p>
+						</div>
+					</section>
+					
+					<section>
+						<div class="grid-div" style="grid-template-columns: auto auto;">
+						<a href="#/overview">
+							<h4>Return to overview</h4>
+							<i data-feather="chevrons-left" class="icon"></i>
+						</a>
+						<a href="#/results">
+							<h4>Advance to next chapter</h4>
+							<i data-feather="chevrons-right" class="icon"></i>
+						</a>
+						</div>
+					</section>
+				</section>
+				
+				<section>
+					<section id="results">
+						<div class="heading">
+							<h3>Results</h3>
+						</div>
+						<p class="textblock">To visualize the automated classification results we combine the color codes with the infrasound time series.</p>
+						<a href="#" class="navigate-down">
+							<p class="read-more">Read more</p>
+							<i data-feather="chevrons-down" class="icon"></i>
+						</a>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Result visualization</h3>
+						<div class="layer-container">
+							<img src="resources/RMS_xaxis.png">
+							<img src="resources/RMS_yaxis_counts.png" class="layer-overlay">
+							<img src="resources/RMS_Step1_wave.png" class="layer-overlay">
+						</div>
+						<p class="textblock">Displaying the raw waveform data is not practical when looking at time scales of more than a few hours</p>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Result visualization</h3>
+						<div class="layer-container">
+							<img src="resources/RMS_xaxis.png">
+							<img src="resources/RMS_yaxis_rms.png" class="layer-overlay">
+							<img src="resources/RMS_Step2_rms.png" class="layer-overlay">
+						</div>
+						<p class="textblock">We therefore display the <span style="font-style:italic">Root-Mean-Square</span> (rms) value of the infrasound amplitude on a logarithmic y-axis.</p>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Result visualization</h3>
+						<div class="layer-container">
+							<img src="resources/RMS_xaxis.png">
+							<img src="resources/RMS_yaxis_rms.png" class="layer-overlay">
+							<img src="resources/RMS_Step2_rms.png" class="layer-overlay">
+							<img src="resources/RMS_Step3_color.png" class="layer-overlay">
+						</div>
+						<p class="textblock">We use the color information derived from our method to fill the area below the curve.</p>
+					</section>
+					
+					<section>
+						<h3>Infrasound Regimes</h3>
+						<p class="tip">Use the buttons below to view the different regimes</p>
+						<div class="grid-div" style="grid-template-columns:80% 20%;">
+							<div class="layer-container" style="align-items:center;">
+								<img src="resources/bitmap_quiet.png" id="regime-wave" style="margin:auto;max-height:550px;opacity:-1;transition:opacity .5s;">
+								<img src="resources/rms_quiet.png" id="regime-rms" class="layer-overlay" style="margin:auto;opacity:1;transition:opacity .5s;">
+							</div>
+							<div id="regime-desc" class="textblock-full grid-div">
+								<h4 id="regime-desc-heading" style="font-size:1.5em;">Quiet phase</h4>
+								<p id="regime-desc-text">Low amplitude background noise. Absence of volcanic signals or wind noise. These patterns are represented by mint and light bluish colors.</p>
+								<button id="regime-switcher" class="infra-btn" onclick="switchRegimeImage();">Show Waveform</button>
+							</div>
+						</div>
+						<div class="buttons">
+							<button class="infra-btn" onclick="loadRegime('quiet');">Quiet phase</button>
+							<button class="infra-btn" onclick="loadRegime('wind');">Wind noise</button>
+							<button class="infra-btn" onclick="loadRegime('low');">Low volcanic activity</button>
+							<button class="infra-btn" onclick="loadRegime('medium');">Medium volcanic activity</button>
+							<button class="infra-btn" onclick="loadRegime('high');">High volcanic activity</button>
+							<button class="infra-btn" onclick="loadRegime('intense');">Intense volcanic activity</button>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Regime map</h3>
+						<div class="grid-div" style="grid-template-columns: 70% 30%;">
+							<div class="layer-container">
+								<img src="resources/regime_map.png" style="max-height:650px;">
+								<div id="quiet-anno" class="layer-overlay regime-annotation">
+									<p>Quiet phase</p>
+								</div>
+								<div id="wind-anno" class="layer-overlay regime-annotation">
+									<p>Wind noise</p>
+								</div>
+								<div id="low-anno" class="layer-overlay regime-annotation">
+									<p>Low volcanic activity</p>
+								</div>
+								<div id="medium-anno" class="layer-overlay regime-annotation">
+									<p>Medium volcanic activity</p>
+								</div>
+								<div id="high-anno" class="layer-overlay regime-annotation">
+									<p>High volcanic activity</p>
+								</div>
+								<div id="intense-anno" class="layer-overlay regime-annotation">
+									<p>Intense volcanic activity</p>
+								</div>
+							</div>
+							<div>
+								<p class="textblock-full">The color interpretation and knowledge of the most prominent regimes allows us to assign labels to the different region in the map.</p>
+								<p class="textblock-full">We have validated the regime/color classification results with other volcanological observation as provided by the INGV monitoring routine. In the selected time frame from December 2018 to March 2021 we could not identify any false classifications.</p>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>Paroxysmal phase in February 2021</h3>
+						<p class="tip">Use the buttons below to see the interpretation of the infrasound waveforms<br>for the first week of paroxysmal activity in February 2021</p>
+						<div>
+							<img id="parox-interp" src="resources/RMS_paroxysms.png">
+						</div>
+						<div class="buttons">
+							<button class="infra-btn" onclick="paroxInterp('paroxysm');">Paroxysms</button>
+							<button class="infra-btn" onclick="paroxInterp('high');">Increased activity</button>
+							<button class="infra-btn" onclick="paroxInterp('low');">Decreased activity</button>
+							<button class="infra-btn" onclick="paroxInterp('wind');">Noise</button>
+							<button class="infra-btn" onclick="paroxInterp('all');">Show all</button>
+						</div>
+					</section>
+					
+					<section>
+						<div class="grid-div" style="grid-template-columns: auto auto;">
+						<a href="#/overview">
+							<h4>Return to overview</h4>
+							<i data-feather="chevrons-left" class="icon"></i>
+						</a>
+						<a href="#/conclusion">
+							<h4>Advance to next chapter</h4>
+							<i data-feather="chevrons-right" class="icon"></i>
+						</a>
+						</div>
+					</section>
+				</section>
+				
+				<section>
+					<section id="conclusion">
+						<div class="heading">
+							<h3>Conclusion</h3>
+						</div>
+						<p class="textblock">We can utilize Self-Organizing maps to assign a color code to waveform samples of 250 s</p>
+						<p class="textblock">These color codes are useful to get a fast and reliable analysis of the infrasound regime and can help non-experts at reading the infrasound data.</p>
+						<a href="#" class="navigate-down">
+							<p class="read-more">You have questions?</p>
+							<i data-feather="chevrons-down" class="icon"></i>
+						</a>
+					</section>
+					
+					<section>
+						<h3>Contact</h3>
+						<div class="grid-div" style="justify-content:center;grid-row-gap:40px;margin-top:40px;">
+							<div>
+								<a href="mailto:felix.eckel@ifg.uni-kiel.de" style="display:flex;">
+									<i data-feather="mail" class="icon"></i>
+									<p style="margin:auto 20px;">felix.eckel@ifg.uni-kiel.de</p>
+								</a>
+							</div>
+							<div class="flex-div">
+								<a href="https://www.twitter.com/FelixEckel" style="display:flex;">
+									<i data-feather="twitter" class="icon"></i>
+									<p style="margin:auto 20px;">@FelixEckel</p>
+								</a>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<h3>References</h3>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Self-Organizing maps</h4>
+								<a href="https://www.doi.org/10.1109/5.58325">T. Kohonen, 2019, "The self-organizing map," in <span style="font-style:italic;">Proceedings of the IEEE</span>, vol. 78, no. 9, pp. 1464-1480, doi: 10.1109/5.58325</a>
+							</div>
+						<div>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Pattern recognition in Geophysics</h4>
+								<a href="https://www.elsevier.com/books/advantages-and-pitfalls-of-pattern-recognition/langer/978-0-12-811842-9">H. Langer, S. Falsaperla, and C. Hammer, 2019, <span style="font-style:italic;">Advantages and Pitfalls of Pattern Recognition: Selected Cases in Geophysics</span>, Elsevier</a>
+							</div>
+						<div>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Volcano infrasound</h4>
+								<a href="https://doi.org/10.1016/j.jvolgeores.2011.06.006.">J. B. Johnson, M. Ripepe, 2011, “Volcano infrasound: A review”, in <span style="font-style:italic;">Journal of Volcanology and Geothermal Research</span> 206.3, pp. 61–69. doi: 10.1016/j.jvolgeores.2011.06.006</a>
+							</div>
+						<div>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Pattern recognition application on tremor data at Mount Etna</h4>
+								<a href="https://doi.org/10.1016/j.cageo.2011.03.015">A. Messina, H. Langer, 2011, "Pattern recognition on volcanic tremor data on Mt. Etna (Italy) with KKAnalysis - A software program for unsupervised classification", in <span style="font-style:italic;">Computers & Geosciences</span>, doi: 10.1016/j.cageo.2011.03.015</a>
+							</div>
+						<div>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Infrasound signals at Mount Etna I</h4>
+								<a href="https://www.doi.org/10.1029/2008GL036738">A. Cannata, P. Montalto, E. Privitera, G. Russo, and S. Gresta, 2009, "Tracking eruptive phenomena by infrasound: May 13, 2008 eruption at Mt. Etna", <span style="font-style:italic;">GEOPHYSICAL RESEARCH LETTERS</span>, VOL. 36, L05304, doi: 10.1029/2008GL036738</a>
+							</div>
+						</div>
+						<div class="ref-container">
+							<div class="ref-item">
+								<h4>Infrasound signals at Mount Etna II</h4>
+								<a href="https://doi.org/10.1016/j.jvolgeores.2012.12.024">M. Sciotto, A. Cannata, S. Gresta, E. Privitera, L. Spina, 2013, "Seismic and infrasound signals at Mt. Etna: Modelling of North-East Crater conduit and its relation with the feeding system of the 2008-2009 eruption", in <span style="font-style:italic;">Journal of Volcanology and Geothermal Research</span>, doi: 10.1016/j.jvolgeores.2012.12.024</a>
+							</div>
+						</div>
+						
+						<div class="flex-div">
+							<p style="font-size:.5em;">This presentation is powered by </p>
+							<a href="https://revealjs.com/"><img src="https://static.slid.es/reveal/logo-v1/reveal-white-text.svg" style="padding-left: 10px;max-height:50px;" alt="reveal.js"></a>
+						</div>
+					</section>
+					
+					<section>
+						<a href="#/overview">
+							<h4>Return to overview</h4>
+							<i data-feather="chevrons-left" class="icon"></i>
+						</a>
+					</section>
+				</section>
+				
+			
+			
+			
+
+			</div>
+
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<script src="plugins/zoom/zoom.js"></script>
+		<script src="plugins/notes/notes.js"></script>
+		<script src="plugins/search/search.js"></script>
+		<script src="plugins/markdown/markdown.js"></script>
+		<script src="plugins/highlight/highlight.js"></script>
+		<script src="https://unpkg.com/feather-icons"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				width: 1440,
+				height: 810,
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+		<script tpye="text/javascript">
+			function highlightCAU() {
+				var cau_logo = document.getElementById("cau-logo");
+				cau_logo.style.width = "250px";
+			}
+			
+			function highlightINGV() {
+				var ingv_logo = document.getElementById("ingv-logo");
+				ingv_logo.style.width = "250px";
+			}
+			
+			function highlightLogo_off() {
+				var logos = document.getElementsByClassName("logo");
+				for (i=0;i<logos.length;++i) {
+					logos[i].style.width = "200px";
+				}				
+			}
+			
+			function showSignal(signaltype) {
+				var desc = document.getElementById("signal-description");
+				var head = document.getElementById("signal-heading");
+				var desc_cont;
+				var sign_head;
+				if (signaltype == 'event') {
+					desc_cont = "A transient signal with high frequencies caused by Strombolian explosions";
+					sign_head = "Infrasound Event";
+				} else if (signaltype == 'tremor') {
+					desc_cont = "A continuous signal with a narrow frequency content caused by degassing processes or ash emissions";
+					sign_head = "Infrasound Tremor";
+				} else if (signaltype == 'noise') {
+					desc_cont = "Signal that is present at all frequencies and is caused by wind that is interacting with the microphone";
+					sign_head = "Noise";
+				}
+				desc.textContent = desc_cont;
+				head.textContent = sign_head;
+				desc.style.opacity = 1;
+				head.style.opacity = 1;
+			}
+			
+			function resetSignal() {
+				var desc = document.getElementById("signal-description");
+				var head = document.getElementById("signal-heading");
+				desc.style.opacity = 0;
+				head.style.opacity = 0;
+			}
+			
+			function loadRegime(regime) {
+				var heading = document.getElementById("regime-desc-heading");
+				var description = document.getElementById("regime-desc-text");
+				var rms = document.getElementById("regime-rms");
+				var wave = document.getElementById("regime-wave");
+				var switchBtn = document.getElementById("regime-switcher");
+				switch (regime) {
+					case "quiet":
+						heading.textContent = "Quiet phase";
+						description.textContent = "Low amplitude background noise. Absence of volcanic signals or wind noise. These patterns are represented by mint and light bluish colors.";
+						rms.src = "resources/RMS_quiet.png";
+						wave.src = "resources/bitmap_quiet.png";
+						break;
+					case "wind":
+						heading.textContent = "Wind noise";
+						description.textContent = "Interactions between turbulent atmosphere and the microphone create noise. At larger wind speeds this noise masks any present volcanic signal. These patterns are represented by dark bluish or pinkish colors";
+						rms.src = "resources/RMS_wind.png";
+						wave.src = "resources/bitmap_wind.png";
+						break;
+					case "low":
+						heading.textContent = "Low volcanic activity";
+						description.textContent = "Volcanic activity displays mainly degassing processes. Signal shows infrasound tremors. These patterns are represented by dark and medium greenish colors.";
+						rms.src = "resources/RMS_low_activity.png";
+						wave.src = "resources/bitmap_low_activity.png";
+						break;
+					case "medium":
+						heading.textContent = "Medium volcanic activity";
+						description.textContent = "Volcanic acitivity displays degassing processes and occasional Strombolian explosions. Signals shows infrasound tremor and events. These patterns are represented by light greenish and olive colors";
+						rms.src = "resources/RMS_medium_activity.png";
+						wave.src = "resources/bitmap_medium_activity.png";
+						break;
+					case "high":
+						heading.textContent = "High volcanic activity";
+						description.textContent = "Volcanic activity displays heavy explosive activity with inter-event times of only a few seconds. Signals shows frequent infrasound events. These patterns are represented by yellowish colors.";
+						rms.src = "resources/RMS_high_activity.png";
+						wave.src = "resources/bitmap_high_activity.png";
+						break;
+					case "intense":
+						heading.textContent = "Intense volcanic activity";
+						description.textContent = "Volcanic activity displays increased levels of gas and ash emissions or lava fountain/paroxysmal activity. Signal shows high amplitude infrasound tremors and frequent events. These patterns are represented by orange and reddish colors.";
+						rms.src = "resources/RMS_intense_activity.png";
+						wave.src = "resources/bitmap_intense_activity.png";
+						break;
+				}
+				rms.style.opacity = 1;
+				wave.style.opacity = -1;
+				switchBtn.textContent = "Show Waveform";
+			}
+			
+			function switchRegimeImage() {
+				var wave = document.getElementById("regime-wave");
+				var rms = document.getElementById("regime-rms");
+				var switchBtn = document.getElementById("regime-switcher");
+				wave.style.opacity = wave.style.opacity * -1;
+				rms.style.opacity = rms.style.opacity * -1;
+				if (switchBtn.textContent == "Show Waveform") {
+					switchBtn.textContent = "Show Color Series";
+				} else {
+					switchBtn.textContent = "Show Waveform";
+				}
+				
+			}
+			
+			function paroxInterp(interp) {
+				var img_obj = document.getElementById("parox-interp");
+					switch (interp) {
+						case "paroxysm":
+							img_obj.src = "resources/RMS_paroxysms_paroxysm.png";
+							break;
+						case "high":
+							img_obj.src = "resources/RMS_paroxysms_high.png";
+							break;
+						case "low":
+							img_obj.src = "resources/RMS_paroxysms_low.png";
+							break;
+						case "wind":
+							img_obj.src = "resources/RMS_paroxysms_noise.png";
+							break;
+						case "all":
+							img_obj.src = "resources/RMS_paroxysms.png";
+					}
+			}
+
+		</script>
+		<script>
+			feather.replace()
+		</script>
+
+	</body>
+</html>
